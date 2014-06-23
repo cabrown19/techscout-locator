@@ -1,23 +1,40 @@
-  /*
-      function parter(t, p, s){
-        //document.write(t.toString.length -1);
-        return (t.toString.length -1);
+  
+      function parter(t, day){
+        var d = new Date(0);
+        d.setUTCSeconds(t);
+
+        tYear = d.getUTCFullYear();
+        pYear = day.getUTCFullYear();
+        tMonth = d.getUTCMonth();
+        pMonth = day.getUTCMonth();
+        tday = d.getUTCDay();
+        pday = day.getUTCDay();
+
+        if (tYear < pYear) {
+          return true;
+        } else if ( tYear === pYear && tMonth < pMonth) {
+          return true;
+        } else if ( tYear === pYear && tMonth === pMonth && tDay <= pDay) {
+          return true;
+        } else {
+          return false;
+        }
       }
-      */
+      
 
       function initialize() {
 
         data = [
-                    {name: "Fred", timestamp: 6, lat: 32.7150, lon: -117.1625},
-                    {name: "Dmitri", timestamp: 88436, lat: 37.7833, lon: -122.4167},
-                    {name: "Sally", timestamp: 938, lat: 33.7408, lon: -117.8814},
-                    {name: "Rebecca", timestamp: 43, lat: 37.3544, lon: -121.9692},
-                    {name: "Corndawg", timestamp: 5029, lat: 34.0528, lon: -117.6278},
-                    {name: "Augustus", timestamp: 17, lat: 34.1100, lon: -117.7197},
-                    {name: "Mom", timestamp: 970, lat: 34.1100, lon: -117.7197},
-                    {name: "Kobe Bryant", timestamp: 14, lat: 34.1100, lon: -117.7197},
-                    {name: "Bart", timestamp: 45238, lat: 37.7833, lon: -122.4167},
-                    {name: "Sungyoung", timestamp: 2, lat: 34.0500, lon: -118.2500}
+                    {name: "Fred", timestamp: 1396896970, lat: 32.7150, lon: -117.1625},
+                    {name: "Dmitri", timestamp: 1396851550, lat: 37.7833, lon: -122.4167},
+                    {name: "Sally", timestamp: 1398353030, lat: 33.7408, lon: -117.8814},
+                    {name: "Rebecca", timestamp: 1398006260, lat: 37.3544, lon: -121.9692},
+                    {name: "Corndawg", timestamp: 1395129060, lat: 34.0528, lon: -117.6278},
+                    {name: "Augustus", timestamp: 1394660520, lat: 34.1100, lon: -117.7197},
+                    {name: "Mom", timestamp: 1395212140, lat: 34.1100, lon: -117.7197},
+                    {name: "Kobe Bryant", timestamp: 1393516960, lat: 34.1100, lon: -117.7197},
+                    {name: "Bart", timestamp: 1396115100, lat: 37.7833, lon: -122.4167},
+                    {name: "Sungyoung", timestamp: 1397009990, lat: 34.0500, lon: -118.2500}
                     ];
 
         var mapOptions = {
@@ -40,18 +57,14 @@
         markers = [];
 
 
-        for (var x = 0; x < p; x++){
-          markers[x] = [];
-        }
-
         for (var y = 0; y < data.length; y++){
            var m = new google.maps.Marker({
-            position: new google.maps.LatLng(data[y][2], data[y][3]),
+            position: new google.maps.LatLng(data[y].lat, data[y].lon),
             map: map,
             icon: 'http://s7.postimg.org/v3hm8ub5j/icon.png',
-            title: data[y][0]
+            title: data[y].name
             });
-
+           markers.push(m);
            var infowindow = new google.maps.InfoWindow({
   			});
 
@@ -59,10 +72,12 @@
            	infowindow.setContent(this.title);
     		infowindow.open(map,this);
  			 });
-
-          markers[parter(data[y][1], p, s)].push(m);
         }
+        document.getElementById('exampleInput').onchange = setPin;
+        document.getElementById('fader').onchange = setPin;
     }
 
       google.maps.event.addDomListener(window, 'load', initialize);
+
+
      
