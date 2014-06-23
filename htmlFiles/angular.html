@@ -34,7 +34,7 @@
 
         <script>
         function Ctrl($scope) {
-        $scope.value = new Date(2013, 4, 1);
+        $scope.value = new Date(2014, 0, 1);
         }
         </script>
 
@@ -58,8 +58,8 @@
 
                 Pick a month in 2013 or 2014:
 
-                <input id="exampleInput" type="month" name="input" ng-model="value" value="2014-04"
-                placeholder="yyyy-MMM" min="2014-03" max="2014-06" required ng-change="selectedDay = 1; hiddenDay = hiddenDay + 1"/>
+                <input id="exampleInput" type="month" name="input" ng-model="value"
+                placeholder="yyyy-MMM" min="2014-01" max="2020-12" required ng-change="selectedDay = 1; hiddenDay = hiddenDay + 1"/>
 
                 <span class="error" ng-show="myForm.input.$error.required">
                 Required!</span>
@@ -73,7 +73,7 @@
 
                 <label for="fader">1 </label>
 
-                <input type="range" min="1" max="{{months[value.getMonth()].day || 5}}" value="1" id="fader" step="1" style="width:{{25 * months[value.getMonth()].day}}px"
+                <input type="range" min="1" max="{{months[value.getMonth()].day}}" value="1" id="fader" step="1" style="width:{{25 * months[value.getMonth()].day}}px"
                         list="day" ng-model="selectedDay">
                 <datalist id="day">
                         <option ng-repeat="n in [] | range:32">{{n}}</option>
