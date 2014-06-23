@@ -33,7 +33,7 @@
                                     {month: 'Oct', day: 31},
                                     {month: 'Nov', day: 30},
                                     {month: 'Dec', day: 31}
-        ]; selectedDay=1" >
+        ]; selectedDay=1; hiddenDay = 0;" >
 
 
             <form name="myForm" ng-controller="Ctrl as dateCtrl">
@@ -41,7 +41,7 @@
                 Pick a month in 2013 or 2014:
 
                 <input id="exampleInput" type="month" name="input" ng-model="value"
-                placeholder="yyyy-MMM" min="2013-01" max="2014-12" required ng-change="selectedDay = 1"/>
+                placeholder="yyyy-MMM" min="2013-01" max="2014-12" required ng-change="selectedDay = 1; hiddenDay = hiddenDay + 1"/>
 
                 <span class="error" ng-show="myForm.input.$error.required">
                 Required!</span>
@@ -53,16 +53,19 @@
                 <br>
                 <br>
 
-                <label for="fader">Day</label>
+                <label for="fader">1 </label>
 
-                <input type="range" min="1" max="{{months[value.getMonth()].day || 5}}" value="1" id="fader" step="1" style="width:700px"
+                <input type="range" min="1" max="{{months[value.getMonth()].day || 5}}" value="1" id="fader" step="1" style="width:{{25 * months[value.getMonth()].day}}px"
                         list="day" ng-model="selectedDay">
                 <datalist id="day">
                         <option ng-repeat="n in [] | range:32">{{n}}</option>
                 </datalist>
 
-
-                <output for="fader" id="volume"> Selected Day: {{selectedDay}} </output>
+                <output for="fader" id="volume"> {{months[value.getMonth()].day}}</output>
+                <br>
+                <br>
+                <output for="fader" id="volume"> Selected Day: {{selectedDay}}</output>
+                <output style="font-size: 0%" for="fader" id="volume"> {{hiddenDay}}</output>
 
             </form>
         </div>
