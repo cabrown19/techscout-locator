@@ -7,6 +7,3 @@
     return input;
     };
     })
-    .controller('Controller', ['$scope', function($scope) {
-      $scope.greeting = 'hello';
-    }]);
