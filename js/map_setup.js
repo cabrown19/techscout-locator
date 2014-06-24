@@ -25,6 +25,42 @@ function parter(t, day){
     }
 }
 
+function setLocation(m, locationString, infowindow, map) {
+    var contentString = '<div class="infowindow">' +
+                            m.title +
+                            '<br>' +
+                            locationString +
+                        '</div>';
+
+    infowindow.setContent(contentString);
+    infowindow.open(map, m);
+    return false;
+}
+
+function getLocationData(m, infowindow, map, setLocation) {
+                geocoder = new google.maps.Geocoder();
+                geocoder.geocode({'latLng': m.position}, function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+
+                        for(var i = 0; i < results.length; i++) { 
+
+                            if (results[i].types[0] == "locality") {
+                                var addr = results[i].formatted_address;
+                                break;
+                            } else {
+                                var addr = "     ";
+                            }
+                        }
+
+                        var retString = addr.slice(
+                            0, addr.length - 5);
+
+                        this.setLocation(m, retString, infowindow, map);
+                    }
+                });
+            }
+
+
 
 function initialize() {
 
@@ -72,39 +108,13 @@ function initialize() {
             metadata: {type: "point", id: i}
         });
 
-
-
-
         markers.push(m);
         var infowindow = new google.maps.InfoWindow({});
 
         // Allow each marker to have an info window    
         google.maps.event.addListener(m, 'click', (function() {
-            m = this;
-            geocoder = new google.maps.Geocoder();
-            geocoder.geocode({'latLng': m.position}, function(results, status) {
-                console.log("in function");
-                if (status == google.maps.GeocoderStatus.OK) {
-
-                    if (results[1]) {
-                        locs[m] = results[1];
-                    } else {
-                        alert("No results found");
-                    }
-
-                } else {
-                    locs[m] = "no object";
-                }
-            });
-
-            var contentString =     '<div class="infowindow">' +
-                                        this.m +
-                                        '<br>' +
-                                        locs[m].formatted_address +
-                                    '</div>' 
-
-            infowindow.setContent(contentString);
-            infowindow.open(map, this);
+            
+            getLocationData(this, infowindow, map);
 
         }), false);
     }
