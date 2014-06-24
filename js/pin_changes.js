@@ -2,7 +2,7 @@
 function setPin() {
 
     // Get the elements with user input
-    var day = document.getElementById("exampleInput");
+    var day = document.getElementById("monthAndYear");
     var slider = document.getElementById("fader");
 
     var date;

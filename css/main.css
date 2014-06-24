@@ -1,0 +1,27 @@
+
+html { height: 100% }
+
+.infowindow {
+    color: black;
+    background-color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: black;
+    color: white;
+    position: relative;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    height: 100%;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+#map-canvas {
+    display: table;
+    margin: 0 auto;
+    width: 85%;
+    height: 75%;
+}   

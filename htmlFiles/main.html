@@ -5,39 +5,41 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>Example - example-month-input-directive-production</title>
+        <title>TechScouts Locator</title>
 
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.13/angular.min.js"></script>
-        <script src="/js"></script>
-
-    </head>
-
-    <body ng-app="myReverseModule">
-
-
-        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-        <style type="text/css">
-          html { height: 100% }
-          body { height: 100%; margin: 0; padding: 0 }
-          #map-canvas { height: 100% }
-        </style>
-
+        <script src="/module.js"></script>
         <script type="text/javascript"
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDI7vYZxBhO08PBr3Yd0Zk4gR6hiop6L68">
         </script>
+        <script src="/pin.js"></script>
+        <script src="/map.js"></script>
 
-        <script src="/pin"></script>
-          
-        <script src="/map"></script>
+        <link rel="stylesheet" type="text/css" href="/main.css">
 
-        <div id="map-canvas" style="width: 100%; height: 75%"></div>
+    </head>
 
+    <!-- Set the module which allows ng-repeat with a range -->
+    <body ng-app="rangeModule">
+
+
+        <br><br>
+
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+        <div id="map-canvas"></div>
+
+        <!-- Create a cotroller, set the initial date, and set up a function to change the pins -->
         <script>
         function Ctrl($scope) {
-        $scope.value = new Date(2014, 0, 1);
+            $scope.value = new Date(2014, 11, 1);                       // FIX FOR FINAL BUILD to 2014/0/1
+            $scope.setPin = function() {
+                setPin();
+            }
         }
         </script>
 
+        <!-- Hardcode the months so we can get the proper number of days -->
         <div class="container"
             data-ng-init="months = [{month: 'Jan', day: 31},
                                     {month: 'Feb', day: 28},
@@ -51,39 +53,47 @@
                                     {month: 'Oct', day: 31},
                                     {month: 'Nov', day: 30},
                                     {month: 'Dec', day: 31}
-        ]; selectedDay=1; hiddenDay = 0;" >
+        ]; selectedDay=1; hiddenVal = 0;" >
 
+            <br><br>
 
             <form name="myForm" ng-controller="Ctrl as dateCtrl">
 
                 Pick a month in 2013 or 2014:
 
-                <input id="exampleInput" type="month" name="input" ng-model="value"
-                placeholder="yyyy-MMM" min="2014-01" max="2020-12" required ng-change="selectedDay = 1; hiddenDay = hiddenDay + 1"/>
+                <!-- Set up the month picker. HiddenVal is a cheap hack to force a refresh -->
+                <input id="monthAndYear" type="month" name="input" ng-model="value"
+                placeholder="yyyy-MMM" min="2014-01" max="2020-12" required ng-change="selectedDay = 1; hiddenVal = hiddenVal + 1"/>
 
+                <!-- Add error handling -->
                 <span class="error" ng-show="myForm.input.$error.required">
                 Required!</span>
 
                 <span class="error" ng-show="myForm.input.$error.month">
                 Not a valid month!</span>
 
+                <br><br>
 
-                <br>
-                <br>
-
+                <!-- label the start of the slider -->
                 <label for="fader">1 </label>
 
+                <!-- Set up the slider to change size depending on the number of days in the month -->
                 <input type="range" min="1" max="{{months[value.getMonth()].day}}" value="1" id="fader" step="1" style="width:{{25 * months[value.getMonth()].day}}px"
-                        list="day" ng-model="selectedDay">
+                        list="day" ng-model="selectedDay" ng-change="setPin()">
+
+                <!-- Programatically generate the tick marks for the slider -->
                 <datalist id="day">
                         <option ng-repeat="n in [] | range:32">{{n}}</option>
                 </datalist>
 
+                <!-- Add the number of days in the month to the end of the slider -->
                 <output for="fader" id="volume"> {{months[value.getMonth()].day}}</output>
                 <br>
                 <br>
+
+                <!-- Add the selected day and hidden value -->
                 <output for="fader" id="volume"> Selected Day: {{selectedDay}}</output>
-                <output style="font-size: 0%" for="fader" id="volume"> {{hiddenDay}}</output>
+                <output style="font-size: 0%" for="fader" id="volume"> {{hiddenVal}}</output>
 
             </form>
         </div>
