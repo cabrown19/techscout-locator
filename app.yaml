@@ -10,8 +10,8 @@ handlers:
   upload: favicon\.ico
 
 - url: /
-  upload: htmlFiles/main.html
-  static_files: htmlFiles/main.html
+  upload: html/main.html
+  static_files: html/main.html
 
 - url: /module.js
   upload: js/module.js

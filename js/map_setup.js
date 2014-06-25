@@ -1,6 +1,7 @@
 
+
 // Function for determining if we want a pin 
-// with date "t" to show up given selected date "day"
+// with date "t" to show up given selected date "day"     
 function parter(t, day){
     var d = new Date(0);
     d.setUTCSeconds(t);
@@ -56,27 +57,39 @@ function getLocationData(m, infowindow, map, setLocation) {
                             0, addr.length - 5);
 
                         this.setLocation(m, retString, infowindow, map);
+                    } else {
+                        this.setLocation(m, "", infowindow, map);
                     }
                 });
             }
 
 
 
-function initialize() {
+function dateCtrl($scope) {
+    $scope.value = new Date(2014, 00, 1);
+    $scope.setPin = function() {
+        var results = setPin(map.getBounds(), true, $scope.totalCount);
+        $scope.visibleCount = results.visibleCount;
+        $scope.totalCount = results.totalCount;
+    }
+    $scope.visibleCount = 0;
+    $scope.totalCount = 0;
+
+    $scope.$watch('visibleCount', function(newValue) { console.log('visibleCount changed to: ' + newValue)})
 
     // Initialize some fake data
     data = [
             {name: "Fred", timestamp: 1396896970, lat: 32.7150, lon: -117.1625},
-            {name: "Dmitri", timestamp: 1396851550, lat: 37.7833, lon: -122.4167},
+            {name: "Sam", timestamp: 1396851550, lat: 36.33, lon: -122.4167},
             {name: "Sally", timestamp: 1398353030, lat: 33.7408, lon: -117.8814},
             {name: "Rebecca", timestamp: 1398006260, lat: 37.3544, lon: -121.9692},
             {name: "Corndawg", timestamp: 1395129060, lat: 34.0528, lon: -117.6278},
-            {name: "Augustus", timestamp: 1394660520, lat: 34.1100, lon: -117.7197},
-            {name: "Mom", timestamp: 1395212140, lat: 34.1100, lon: -117.7197},
+            {name: "Augustus", timestamp: 1394660520, lat: 33.1100, lon: -117.5197},
+            {name: "Mom", timestamp: 1395212140, lat: 34.2100, lon: -118.7197},
             {name: "Kobe Bryant", timestamp: 1393516960, lat: 34.1100, lon: -117.7197},
             {name: "Bart", timestamp: 1396115100, lat: 37.7833, lon: -122.4167},
             {name: "Sungyoung", timestamp: 1397009990, lat: 34.0500, lon: -118.2500},
-            {name: "Jo", timestamp: 1396509990, lat: 51.50722, lon: -0.12750}
+            {name: "Jo", timestamp: 1396509990, lat: 51.50722, lon: -0.12750},                  
     ];
 
     // Set up the map configuration
@@ -109,6 +122,15 @@ function initialize() {
         });
 
         markers.push(m);
+
+        google.maps.event.addListener(map, 'bounds_changed', (function() {
+
+            var results = setPin(map.getBounds(), false, $scope.totalCount);
+            $scope.totalCount = results.totalCount;
+            $scope.visibleCount = results.visibleCount;
+            console.log("count after: " + $scope.visibleCount);
+        }), false);
+
         var infowindow = new google.maps.InfoWindow({});
 
         // Allow each marker to have an info window    
@@ -119,13 +141,8 @@ function initialize() {
         }), false);
     }
 
-
-    // Add event handlers
-    document.getElementById('monthAndYear').onchange = setPin;
-    document.getElementById('fader').onchange = setPin;
 }
 
-google.maps.event.addDomListener(window, 'load', initialize);
 
 
 
