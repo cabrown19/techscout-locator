@@ -105,7 +105,7 @@ function initialize() {
             map: map,
             icon: 'http://s7.postimg.org/v3hm8ub5j/icon.png',
             title: data[y].name,
-            metadata: {type: "point", id: i}
+            visible: false
         });
 
         markers.push(m);

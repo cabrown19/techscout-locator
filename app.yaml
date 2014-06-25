@@ -1,0 +1,36 @@
+application: techscout-locator
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+- url: /
+  upload: htmlFiles/main.html
+  static_files: htmlFiles/main.html
+
+- url: /module.js
+  upload: js/module.js
+  static_files: js/module.js
+
+- url: /map.js
+  upload: js/map_setup.js
+  static_files: js/map_setup.js
+
+- url: /pin.js
+  upload: js/pin_changes.js
+  static_files: js/pin_changes.js
+
+- url: /main.css
+  upload: css/main.css
+  static_files: css/main.css
+
+libraries:
+- name: webapp2
+  version: "2.5.2"
+- name: jinja2
+  version: latest

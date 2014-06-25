@@ -32,7 +32,7 @@
         <!-- Create a cotroller, set the initial date, and set up a function to change the pins -->
         <script>
         function Ctrl($scope) {
-            $scope.value = new Date(2014, 11, 1);                       // FIX FOR FINAL BUILD to 2014/0/1
+            $scope.value = new Date(2014, 00, 1);               
             $scope.setPin = function() {
                 setPin();
             }
@@ -74,12 +74,17 @@
 
                 <br><br>
 
+                
+
+                <div class="" style="width:'75%'">
+
                 <!-- label the start of the slider -->
                 <label for="fader">1 </label>
 
+
                 <!-- Set up the slider to change size depending on the number of days in the month -->
-                <input type="range" min="1" max="{{months[value.getMonth()].day}}" value="1" id="fader" step="1" style="width:{{25 * months[value.getMonth()].day}}px"
-                        list="day" ng-model="selectedDay" ng-change="setPin()">
+                    <input type="range" min="1" max="{{months[value.getMonth()].day}}" value="1" id="fader" step="1"
+                        list="day" ng-model="selectedDay" ng-change="setPin()" class="daySlider">
 
                 <!-- Programatically generate the tick marks for the slider -->
                 <datalist id="day">
@@ -88,6 +93,8 @@
 
                 <!-- Add the number of days in the month to the end of the slider -->
                 <output for="fader" id="volume"> {{months[value.getMonth()].day}}</output>
+                </div>
+
                 <br>
                 <br>
 

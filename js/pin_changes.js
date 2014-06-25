@@ -9,7 +9,7 @@ function setPin() {
 
     // Check if they are initialized, if not set a default
     if (day.valueAsDate == null) {
-        date = new Date(2014, 00, 01);
+        date = new Date(2014, 0, 01);
     } else {
         // If they are, make a date
         date = new Date(day.valueAsDate.getUTCFullYear(), day.valueAsDate.getUTCMonth(), parseInt(slider.value));
