@@ -67,15 +67,26 @@ function getLocationData(m, infowindow, map, setLocation) {
 
 function dateCtrl($scope) {
     $scope.value = new Date(2014, 00, 1);
+
     $scope.setPin = function() {
+
         var results = setPin(map.getBounds(), true, $scope.totalCount);
         $scope.visibleCount = results.visibleCount;
         $scope.totalCount = results.totalCount;
-    }
+    };
+
+    $scope.mapChange = function() {
+
+        var results = setPin(map.getBounds(), false, $scope.totalCount);
+        $scope.visibleCount = results.visibleCount;
+        $scope.totalCount = results.totalCount;
+        $scope.$digest();
+    };
+
     $scope.visibleCount = 0;
     $scope.totalCount = 0;
 
-    $scope.$watch('visibleCount', function(newValue) { console.log('visibleCount changed to: ' + newValue)})
+    //$scope.$watch('visibleCount', function(newValue) { console.log('visibleCount changed to: ' + newValue)}, true);
 
     // Initialize some fake data
     data = [
@@ -88,8 +99,7 @@ function dateCtrl($scope) {
             {name: "Mom", timestamp: 1395212140, lat: 34.2100, lon: -118.7197},
             {name: "Kobe Bryant", timestamp: 1393516960, lat: 34.1100, lon: -117.7197},
             {name: "Bart", timestamp: 1396115100, lat: 37.7833, lon: -122.4167},
-            {name: "Sungyoung", timestamp: 1397009990, lat: 34.0500, lon: -118.2500},
-            {name: "Jo", timestamp: 1396509990, lat: 51.50722, lon: -0.12750},                  
+            {name: "Sungyoung", timestamp: 1397009990, lat: 34.0500, lon: -118.2500},              
     ];
 
     // Set up the map configuration
@@ -116,7 +126,7 @@ function dateCtrl($scope) {
         var m = new google.maps.Marker({
             position: latlng,
             map: map,
-            icon: '/favicon.png',
+            icon: '/icon.png',
             title: data[y].name,
             visible: false
         });
@@ -125,10 +135,8 @@ function dateCtrl($scope) {
 
         google.maps.event.addListener(map, 'bounds_changed', (function() {
 
-            var results = setPin(map.getBounds(), false, $scope.totalCount);
-            $scope.totalCount = results.totalCount;
-            $scope.visibleCount = results.visibleCount;
-            console.log("count after: " + $scope.visibleCount);
+            $scope.mapChange();
+
         }), false);
 
         var infowindow = new google.maps.InfoWindow({});

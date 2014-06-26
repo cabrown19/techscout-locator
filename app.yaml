@@ -5,9 +5,9 @@ api_version: 1
 threadsafe: yes
 
 handlers:
-- url: /favicon.png
-  static_files: images/favicon.png
-  upload: images/favicon.png
+- url: /icon.png
+  static_files: images/techscouts_icon.png
+  upload: images/techscouts_icon.png
 
 - url: /
   upload: html/main.html
