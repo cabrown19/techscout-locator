@@ -25,9 +25,25 @@ handlers:
   upload: js/pin_changes.js
   static_files: js/pin_changes.js
 
+- url: /ion.rangeSlider.min.js
+  upload: js/ion.rangeSlider.min.js
+  static_files: js/ion.rangeSlider.min.js
+
 - url: /main.css
   upload: css/main.css
   static_files: css/main.css
+
+- url: /ion.rangeSlider.css
+  upload: css/ion.rangeSlider.css
+  static_files: css/ion.rangeSlider.css
+
+- url: /ion.rangeSlider.skinFlat.css
+  upload: css/ion.rangeSlider.skinFlat.css
+  static_files: css/ion.rangeSlider.skinFlat.css
+
+- url: /normalize.min.css
+  upload: css/normalize.min.css
+  static_files: css/normalize.min.css
 
 libraries:
 - name: webapp2

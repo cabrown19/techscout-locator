@@ -88,19 +88,40 @@ function dateCtrl($scope) {
 
     //$scope.$watch('visibleCount', function(newValue) { console.log('visibleCount changed to: ' + newValue)}, true);
 
+
+    var months = [30, 31, 30, 31, 31, 30, 31, 30, 31, 31, 28, 31];
+    var monthNames = ["April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March"];
+    var yearNames = ["2014", "2014", "2014", "2014", "2014", "2014", "2014", "2014", "2014", "2015", "2015", "2015"];
+    var customVals = [];
+
+    for (var x = 0; x < months.length; x++){
+        for (var y = 0; y < months[x]; y++){
+            customVals.push(monthNames[x] + " " + (y+1).toString() + ", " + yearNames[x]);
+        }
+    }
+
+    $("#slider").ionRangeSlider({
+        values: customVals,
+        type: 'double', 
+        hasGrid: true
+    });
+
+
     // Initialize some fake data
     data = [
             {name: "Fred", timestamp: 1396896970, lat: 32.7150, lon: -117.1625},
-            {name: "Sam", timestamp: 1396851550, lat: 36.33, lon: -122.4167},
+            {name: "Dmitri", timestamp: 1396851550, lat: 37.7833, lon: -122.4167},
             {name: "Sally", timestamp: 1398353030, lat: 33.7408, lon: -117.8814},
             {name: "Rebecca", timestamp: 1398006260, lat: 37.3544, lon: -121.9692},
             {name: "Corndawg", timestamp: 1395129060, lat: 34.0528, lon: -117.6278},
-            {name: "Augustus", timestamp: 1394660520, lat: 33.1100, lon: -117.5197},
-            {name: "Mom", timestamp: 1395212140, lat: 34.2100, lon: -118.7197},
+            {name: "Augustus", timestamp: 1394660520, lat: 34.1100, lon: -117.7197},
+            {name: "Mom", timestamp: 1395212140, lat: 34.1100, lon: -117.7197},
             {name: "Kobe Bryant", timestamp: 1393516960, lat: 34.1100, lon: -117.7197},
             {name: "Bart", timestamp: 1396115100, lat: 37.7833, lon: -122.4167},
-            {name: "Sungyoung", timestamp: 1397009990, lat: 34.0500, lon: -118.2500},              
+            {name: "Sungyoung", timestamp: 1397009990, lat: 34.0500, lon: -118.2500},
+            {name: "Jo", timestamp: 1396509990, lat: 51.50722, lon: -0.12750}
     ];
+
 
     // Set up the map configuration
     var mapOptions = {
@@ -148,6 +169,9 @@ function dateCtrl($scope) {
 
         }), false);
     }
+
+
+    document.getElementById('gobutton').onclick = function() {setPin(map);};
 
 }
 

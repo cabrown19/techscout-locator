@@ -12,8 +12,15 @@
         <script type="text/javascript"
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDI7vYZxBhO08PBr3Yd0Zk4gR6hiop6L68">
         </script>
+        <script src= "http://code.jquery.com/jquery-1.11.0.min.js"></script>
         <script src="/pin.js"></script>
         <script src="/map.js"></script>
+        <script src= "/ion.rangeSlider.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="/main.css">
+        <link rel="stylesheet" type="text/css" href="/ion.rangeSlider.css">
+        <link rel="stylesheet" type="text/css" href="/ion.rangeSlider.skinFlat.css">
+        <link rel="stylesheet" type="text/css" href="/normalize.min.css">
 
         <link rel="stylesheet" type="text/css" href="/main.css">
 
@@ -45,7 +52,6 @@
                                     {month: 'Dec', day: 31}
         ]; selectedDay=1; hiddenVal = 0;" >
 
-            <br><br>
 
             <form name="myForm" ng-controller="dateCtrl">
 
@@ -62,7 +68,6 @@
                 <span class="error" ng-show="myForm.input.$error.month">
                 Not a valid month!</span>
 
-                <br><br>
 
                 
 
@@ -85,16 +90,46 @@
                     <output for="fader" id="volume"> {{months[value.getMonth()].day}}</output>
                 </div>
 
-                <br><br>
 
                 <!-- Add the selected day and hidden value -->
-                <output for="fader" id="volume"> Selected Day: {{selectedDay}}</output>
+                <output for="fader" id="volume"> Selected Day: {{selectedDay}} vis count: {{visibleCount}} total count: {{totalCount}}</output>
                 <output style="font-size: 0%" for="fader" id="volume"> {{hiddenVal}}</output>
-
-                <br><br>
-                <div> vis count: {{visibleCount}}</div> 
-                <div> total count: {{totalCount}}</div>
             </form>
+
+
+
+        <div style = "width:80%; margin:auto">
+
+        <input id="startDate" type="date" name="input" ng-model="value"
+                placeholder="yyyy-MMM" min="2014-01" max="2020-12" required ng-change="selectedDay = 1; hiddenVal = hiddenVal + 1; setPin()"/>
+
+                <!-- Add error handling -->
+                <span class="error" ng-show="myForm.input.$error.required">
+                Required!</span>
+
+                <span class="error" ng-show="myForm.input.$error.month">
+                Not a valid month!</span>
+
+                  &nbsp;to&nbsp;
+
+        <input id="endDate" type="date" name="input" ng-model="value"
+                placeholder="yyyy-MMM" min="2014-01" max="2020-12" required ng-change="selectedDay = 1; hiddenVal = hiddenVal + 1; setPin()"/>
+
+                <!-- Add error handling -->
+                <span class="error" ng-show="myForm.input.$error.required">
+                Required!</span>
+
+                <span class="error" ng-show="myForm.input.$error.month">
+                Not a valid month!</span>
+
+        <input type="submit" value="GO!" id = "gobutton"/>
+
+        </div>
+        <br> 
+        <input type="text" id="slider" name="example_name" from ="50"/>
+
+
+
         </div>
 
     </body>
