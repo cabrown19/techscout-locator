@@ -116,7 +116,7 @@ function dateCtrl($scope) {
         var m = new google.maps.Marker({
             position: latlng,
             map: map,
-            icon: 'http://s7.postimg.org/v3hm8ub5j/icon.png',
+            icon: '/favicon.png',
             title: data[y].name,
             visible: false
         });

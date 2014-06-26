@@ -1,4 +1,4 @@
-function setPin(bounds, update, totalCount, $scope) {
+function setPin(bounds, update, totalCount) {
     var visibleCount = 0;
     if (update) {
         totalCount = 0;
