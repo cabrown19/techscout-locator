@@ -18,6 +18,32 @@ function setPin(bounds, update, totalCount) {
         //     // If they are, make a date
         //     date = new Date(day.valueAsDate.getUTCFullYear(), day.valueAsDate.getUTCMonth(), parseInt(slider.value));
         // }
+
+        var sliderStartDate = document.getElementById("slider").from;
+        var sliderEndDate = document.getElementById("slider").to;
+        var months = [30, 31, 30, 31, 31, 30, 31, 30, 31, 31, 28, 31];
+        var monthNames = ["April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March"];
+        var yearNames = ["2014", "2014", "2014", "2014", "2014", "2014", "2014", "2014", "2014", "2015", "2015", "2015"];
+        var aggr = 0;
+        var i = 0;
+        while (sliderStartDate < aggr) {
+            aggr += months[i];
+            i++;
+        }
+
+        var startDate = new Date(yearNames[i], monthNames[i], aggr - sliderStartDate);
+
+
+        aggr = 0;
+        i = 0;
+        while (sliderEndDate < aggr) {
+            aggr += months[i];
+            i++;
+        }
+
+        var endDate = new Date(yearNames[i], monthNames[i], aggr - sliderEndDate);
+
+
         if (endDate == null) {
             endDate = new Date(2014, 0, 01);
         }

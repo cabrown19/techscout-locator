@@ -175,6 +175,7 @@ function dateCtrl($scope) {
 
 
     document.getElementById('gobutton').onclick = function() {setPin(map.getBounds(), true, $scope.totalCount);};
+    document.getElementById('slider').onchange = function() {setPin(map.getBounds(), true, $scope.totalCount);};
 
 }
 
