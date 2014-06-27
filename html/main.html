@@ -27,7 +27,7 @@
     </head>
 
     <!-- Set the module which allows ng-repeat with a range -->
-    <body ng-app="rangeModule">
+    <body ng-app="rangeModule" ng-controller="dateCtrl">
 
 
         <br><br>
@@ -35,66 +35,10 @@
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 
         <div id="map-canvas"></div>
-
-        <!-- Hardcode the months so we can get the proper number of days -->
-        <div class="container"
-            data-ng-init="months = [{month: 'Jan', day: 31},
-                                    {month: 'Feb', day: 28},
-                                    {month: 'Mar', day: 31},
-                                    {month: 'Apr', day: 30},
-                                    {month: 'May', day: 31},
-                                    {month: 'Jun', day: 30},
-                                    {month: 'Jul', day: 31},
-                                    {month: 'Aug', day: 31},
-                                    {month: 'Sep', day: 30},
-                                    {month: 'Oct', day: 31},
-                                    {month: 'Nov', day: 30},
-                                    {month: 'Dec', day: 31}
-        ]; selectedDay=1; hiddenVal = 0;" >
+        <br><br>
 
 
-            <form name="myForm" ng-controller="dateCtrl">
-
-                Pick a month in 2013 or 2014:
-
-                <!-- Set up the month picker. HiddenVal is a cheap hack to force a refresh -->
-                <input id="monthAndYear" type="month" name="input" ng-model="value"
-                placeholder="yyyy-MMM" min="2014-01" max="2020-12" required ng-change="selectedDay = 1; hiddenVal = hiddenVal + 1; setPin()"/>
-
-                <!-- Add error handling -->
-                <span class="error" ng-show="myForm.input.$error.required">
-                Required!</span>
-
-                <span class="error" ng-show="myForm.input.$error.month">
-                Not a valid month!</span>
-
-
-                
-
-                <div class="sliderContainer" style="width:'75%'">
-
-                    <!-- label the start of the slider -->
-                    <label for="fader">1 </label>
-
-
-                    <!-- Set up the slider to change size depending on the number of days in the month -->
-                        <input type="range" min="1" max="{{months[value.getMonth()].day}}" value="1" id="fader" step="1"
-                            list="day" ng-model="selectedDay" ng-change="setPin()" class="daySlider">
-
-                    <!-- Programatically generate the tick marks for the slider -->
-                    <datalist id="day">
-                            <option ng-repeat="n in [] | range:32">{{n}}</option>
-                    </datalist>
-
-                    <!-- Add the number of days in the month to the end of the slider -->
-                    <output for="fader" id="volume"> {{months[value.getMonth()].day}}</output>
-                </div>
-
-
-                <!-- Add the selected day and hidden value -->
-                <output for="fader" id="volume"> Selected Day: {{selectedDay}} vis count: {{visibleCount}} total count: {{totalCount}}</output>
-                <output style="font-size: 0%" for="fader" id="volume"> {{hiddenVal}}</output>
-            </form>
+                <div> Selected Day: {{selectedDay}} vis count: {{visibleCount}} total count: {{totalCount}}</div>
 
 
 

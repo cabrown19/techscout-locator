@@ -2,28 +2,31 @@
 
 // Function for determining if we want a pin 
 // with date "t" to show up given selected date "day"     
-function parter(t, day){
+function parter(t, startDate, endDate){
     var d = new Date(0);
     d.setUTCSeconds(t);
 
-    tYear = d.getUTCFullYear();
-    pYear = day.getUTCFullYear();
-    tMonth = d.getUTCMonth();
-    pMonth = day.getUTCMonth();
-    tDay = d.getUTCDate();
-    pDay = day.getUTCDate();
-
-    if (tYear < pYear) {
+    if(startDate <= d && d <= endDate) {
         return true;
-    } 
-    else if (tYear === pYear && tMonth < pMonth) {
-        return true;
-    } 
-    else if (tYear === pYear && tMonth === pMonth && tDay <= pDay) {
-        return true;
-    } else {
-        return false;
     }
+    return false;
+
+    // tYear = d.getUTCFullYear();
+    // sYear = startDate.getUTCFullYear();
+    // eYear = endDate.getUTCFullYear();
+    // tMonth = d.getUTCMonth();
+    // sMonth = startDate.getUTCMonth();
+    // eMonth = endDate.getUTCMonth();
+    // tDay = d.getUTCDate();
+    // sDay = startDate.getUTCDate();
+    // eDay = endDate.getUTCDate();
+
+    // if (   (sYear < tYear) && (tYear < pYear)
+    //     && (sMonth < tMonth) && (tMonth < pMonth)
+    //     && (sday < tDay) && (tDay < pDay)){
+    //     return true;
+    // }
+    // return false;
 }
 
 function setLocation(m, locationString, infowindow, map) {
@@ -73,11 +76,12 @@ function dateCtrl($scope) {
         var results = setPin(map.getBounds(), true, $scope.totalCount);
         $scope.visibleCount = results.visibleCount;
         $scope.totalCount = results.totalCount;
+        $scope.$digest();
     };
 
     $scope.mapChange = function() {
 
-        var results = setPin(map.getBounds(), false, $scope.totalCount);
+        var results = setPin(map.getBounds(), true, $scope.totalCount);
         $scope.visibleCount = results.visibleCount;
         $scope.totalCount = results.totalCount;
         $scope.$digest();
@@ -119,7 +123,6 @@ function dateCtrl($scope) {
             {name: "Kobe Bryant", timestamp: 1393516960, lat: 34.1100, lon: -117.7197},
             {name: "Bart", timestamp: 1396115100, lat: 37.7833, lon: -122.4167},
             {name: "Sungyoung", timestamp: 1397009990, lat: 34.0500, lon: -118.2500},
-            {name: "Jo", timestamp: 1396509990, lat: 51.50722, lon: -0.12750}
     ];
 
 
@@ -171,7 +174,7 @@ function dateCtrl($scope) {
     }
 
 
-    document.getElementById('gobutton').onclick = function() {setPin(map);};
+    document.getElementById('gobutton').onclick = function() {setPin(map.getBounds(), true, $scope.totalCount);};
 
 }
 
